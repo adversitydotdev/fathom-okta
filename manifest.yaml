@@ -1,6 +1,6 @@
 id: dev.adversity.okta
 name: Okta
-version: 0.1.2
+version: 0.1.3
 protocol: 1
 publisher: adversity.dev
 description: Workforce users with their MFA factors and admin roles, and groups with members, from Okta.
@@ -27,6 +27,13 @@ auth:
     token_url: "https://{domain}/oauth2/v1/token"
     scopes: [okta.users.read, okta.groups.read, okta.factors.read, okta.roles.read, offline_access]
     pkce: true
+openapi:
+  # Query sources (OGRL RFC 0006): any read operation of Okta's management API.
+  description: openapi/okta-management-2026.44.0.yaml
+  base_url: "https://{domain}"
+  pagination: link
+  read_operations: []
+  authorization: "SSWS {OKTA_API_TOKEN} | Bearer {OGRL_ACCESS_TOKEN}"
 resources:
   - name: users
     version: 1
