@@ -1,6 +1,6 @@
 id: dev.adversity.okta
 name: Okta
-version: 0.1.0
+version: 0.1.1
 protocol: 1
 publisher: adversity.dev
 description: Workforce users with their MFA factors and admin roles, and groups with members, from Okta.
