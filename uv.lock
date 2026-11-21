@@ -148,8 +148,8 @@ wheels = [
 
 [[package]]
 name = "ogrl-integration"
-version = "0.1.0a6"
-source = { git = "https://github.com/adversitydotdev/ogrl-integration-sdk?tag=v0.1.0a6#5d3d98052900ef3f65f67379ec8bb3c2854c2f9c" }
+version = "0.1.0a8"
+source = { git = "https://github.com/adversitydotdev/ogrl-integration-sdk?tag=v0.1.0a8#9a5aefcbf87590158fddc17d0ed6cddeecba6600" }
 
 [package.optional-dependencies]
 cli = [
@@ -159,7 +159,7 @@ cli = [
 
 [[package]]
 name = "ogrl-okta"
-version = "0.1.1"
+version = "0.1.2"
 source = { virtual = "." }
 
 [package.dev-dependencies]
@@ -176,7 +176,7 @@ dev = [
 [package.metadata.requires-dev]
 dev = [
     { name = "common-expression-language", specifier = ">=0.10,<0.11" },
-    { name = "ogrl-integration", extras = ["cli"], git = "https://github.com/adversitydotdev/ogrl-integration-sdk?tag=v0.1.0a6" },
+    { name = "ogrl-integration", extras = ["cli"], git = "https://github.com/adversitydotdev/ogrl-integration-sdk?tag=v0.1.0a8" },
     { name = "pytest", specifier = ">=8" },
     { name = "pyyaml", specifier = ">=6" },
     { name = "ruff", specifier = ">=0.15" },
