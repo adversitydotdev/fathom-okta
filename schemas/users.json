@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "required": ["id", "name", "status", "admin", "mfa_factors", "mfa_enrolled", "strong_mfa", "phishing_resistant"],
+  "properties": {
+    "id": {"type": "string"},
+    "name": {"type": "string", "description": "The Okta login."},
+    "email": {"type": ["string", "null"]},
+    "status": {"type": "string"},
+    "user_type": {"type": ["string", "null"]},
+    "created": {"type": ["string", "null"]},
+    "last_login": {"type": ["string", "null"]},
+    "password_changed": {"type": ["string", "null"]},
+    "admin": {"type": "boolean", "description": "Holds at least one Okta admin role."},
+    "mfa_factors": {"type": "array", "items": {"type": "string"}, "description": "Active factor types."},
+    "mfa_enrolled": {"type": "boolean", "description": "Any active factor other than email or security question."},
+    "strong_mfa": {"type": "boolean", "description": "TOTP, hardware token, or phishing-resistant."},
+    "phishing_resistant": {"type": "boolean", "description": "WebAuthn, U2F, or Okta FastPass (signed_nonce)."}
+  }
+}

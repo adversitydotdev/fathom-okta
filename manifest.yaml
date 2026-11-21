@@ -1,0 +1,71 @@
+id: dev.adversity.okta
+name: Okta
+version: 0.1.0
+protocol: 1
+publisher: adversity.dev
+description: Workforce users with their MFA factors and admin roles, and groups with members, from Okta.
+runtime:
+  kind: python
+  entrypoint: okta_integration:app.run
+egress:
+  - "*.okta.com"
+  - "*.oktapreview.com"
+  - "*.okta-emea.com"
+config:
+  - name: domain
+    label: Okta domain
+    pattern: "^[a-z0-9-]+\\.(okta|oktapreview|okta-emea)\\.com$"
+auth:
+  - kind: fields
+    label: API token
+    fields:
+      - name: OKTA_API_TOKEN
+        label: API token of a read-only admin
+  - kind: oauth2
+    label: OAuth for Okta (API Services or Web app)
+    authorize_url: "https://{domain}/oauth2/v1/authorize"
+    token_url: "https://{domain}/oauth2/v1/token"
+    scopes: [okta.users.read, okta.groups.read, okta.factors.read, okta.roles.read, offline_access]
+    pkce: true
+resources:
+  - name: users
+    version: 1
+    schema: schemas/users.json
+  - name: groups
+    version: 1
+    schema: schemas/groups.json
+checks:
+  - name: admin-mfa-phishing-resistant
+    version: 1
+    sources: [users]
+templates:
+  - name: mfa-enforcement
+    fulfills_ref: test--ogrl-ia-01-mfa-enforcement
+    test:
+      name: Every active Okta user has TOTP or phishing-resistant MFA
+      control_ref: control--ogrl-ia-01
+      method: automated
+      interval: daily
+      description: >
+        Active Okta accounts (including locked-out, recovering, and expired-password
+        ones) must have an active TOTP, hardware token, WebAuthn, U2F, or Okta
+        FastPass factor. SMS, voice, email, and security questions do not count.
+      run:
+        runner: rule
+        source: dev.adversity.okta/users@1
+        select: item.status in ["ACTIVE", "PASSWORD_EXPIRED", "LOCKED_OUT", "RECOVERY"]
+        assert: item.strong_mfa
+        subject: '{"kind": "account", "name": item.name, "external_id": item.id}'
+  - name: admin-phishing-resistant
+    test:
+      name: Okta administrators use phishing-resistant MFA
+      control_ref: control--ogrl-ia-01
+      method: automated
+      interval: daily
+      description: >
+        Every active user holding an Okta admin role has an active WebAuthn, U2F,
+        or Okta FastPass factor.
+      run:
+        runner: integration
+        check: dev.adversity.okta/admin-mfa-phishing-resistant@1
+        sources: [dev.adversity.okta/users@1]

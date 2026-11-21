@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "required": ["id", "name", "group_type", "members"],
+  "properties": {
+    "id": {"type": "string"},
+    "name": {"type": "string"},
+    "description": {"type": ["string", "null"]},
+    "group_type": {"type": "string"},
+    "members": {"type": "array", "items": {"type": "string"}, "description": "User ids."}
+  }
+}

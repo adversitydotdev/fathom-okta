@@ -1,0 +1,87 @@
+{
+  "interactions": [
+    {
+      "method": "GET",
+      "url": "https://acme.okta.com/api/v1/iam/assignees/users?limit=200",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "{\"value\": [{\"id\": \"00u1admin\", \"orn\": \"orn:okta:directory:00o1:users:00u1admin\"}], \"_links\": {\"next\": {\"href\": \"https://acme.okta.com/api/v1/iam/assignees/users?after=00u1admin&limit=200\"}}}"
+    },
+    {
+      "method": "GET",
+      "url": "https://acme.okta.com/api/v1/iam/assignees/users?after=00u1admin&limit=200",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "{\"value\": [{\"id\": \"00u4ops\", \"orn\": \"orn:okta:directory:00o1:users:00u4ops\"}], \"_links\": {}}"
+    },
+    {
+      "method": "GET",
+      "url": "https://acme.okta.com/api/v1/users?limit=200",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json",
+        "Link": "<https://acme.okta.com/api/v1/users?limit=200>; rel=\"self\", <https://acme.okta.com/api/v1/users?after=00u2dev&limit=200>; rel=\"next\""
+      },
+      "body": "[{\"id\": \"00u1admin\", \"status\": \"ACTIVE\", \"created\": \"2025-01-10T12:00:00.000Z\", \"lastLogin\": \"2026-11-20T08:00:00.000Z\", \"passwordChanged\": \"2026-09-01T00:00:00.000Z\", \"type\": {\"id\": \"oty1default\"}, \"profile\": {\"login\": \"ada@acme.test\", \"email\": \"ada@acme.test\", \"firstName\": \"x\", \"lastName\": \"y\"}, \"_links\": {}}, {\"id\": \"00u2dev\", \"status\": \"ACTIVE\", \"created\": \"2025-01-10T12:00:00.000Z\", \"lastLogin\": \"2026-11-20T08:00:00.000Z\", \"passwordChanged\": \"2026-09-01T00:00:00.000Z\", \"type\": {\"id\": \"oty1default\"}, \"profile\": {\"login\": \"ben@acme.test\", \"email\": \"ben@acme.test\", \"firstName\": \"x\", \"lastName\": \"y\"}, \"_links\": {}}]"
+    },
+    {
+      "method": "GET",
+      "url": "https://acme.okta.com/api/v1/users?after=00u2dev&limit=200",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json",
+        "Link": "<https://acme.okta.com/api/v1/users?after=00u2dev&limit=200>; rel=\"self\""
+      },
+      "body": "[{\"id\": \"00u3sms\", \"status\": \"LOCKED_OUT\", \"created\": \"2025-01-10T12:00:00.000Z\", \"lastLogin\": \"2026-11-20T08:00:00.000Z\", \"passwordChanged\": \"2026-09-01T00:00:00.000Z\", \"type\": {\"id\": \"oty1default\"}, \"profile\": {\"login\": \"cy@acme.test\", \"email\": \"cy@acme.test\", \"firstName\": \"x\", \"lastName\": \"y\"}, \"_links\": {}}, {\"id\": \"00u4ops\", \"status\": \"ACTIVE\", \"created\": \"2025-01-10T12:00:00.000Z\", \"lastLogin\": \"2026-11-20T08:00:00.000Z\", \"passwordChanged\": \"2026-09-01T00:00:00.000Z\", \"type\": {\"id\": \"oty1default\"}, \"profile\": {\"login\": \"dee@acme.test\", \"email\": \"dee@acme.test\", \"firstName\": \"x\", \"lastName\": \"y\"}, \"_links\": {}}, {\"id\": \"00u5gone\", \"status\": \"SUSPENDED\", \"created\": \"2025-01-10T12:00:00.000Z\", \"lastLogin\": null, \"passwordChanged\": \"2026-09-01T00:00:00.000Z\", \"type\": {\"id\": \"oty1default\"}, \"profile\": {\"login\": \"eve@acme.test\", \"email\": \"eve@acme.test\", \"firstName\": \"x\", \"lastName\": \"y\"}, \"_links\": {}}]"
+    },
+    {
+      "method": "GET",
+      "url": "https://acme.okta.com/api/v1/users/00u1admin/factors",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "[{\"id\": \"ufwebaut\", \"factorType\": \"webauthn\", \"provider\": \"OKTA\", \"status\": \"ACTIVE\"}, {\"id\": \"ufpush\", \"factorType\": \"push\", \"provider\": \"OKTA\", \"status\": \"ACTIVE\"}]"
+    },
+    {
+      "method": "GET",
+      "url": "https://acme.okta.com/api/v1/users/00u2dev/factors",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "[{\"id\": \"uftokens\", \"factorType\": \"token:software:totp\", \"provider\": \"OKTA\", \"status\": \"ACTIVE\"}]"
+    },
+    {
+      "method": "GET",
+      "url": "https://acme.okta.com/api/v1/users/00u3sms/factors",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "[{\"id\": \"ufsms\", \"factorType\": \"sms\", \"provider\": \"OKTA\", \"status\": \"ACTIVE\"}, {\"id\": \"ufquesti\", \"factorType\": \"question\", \"provider\": \"OKTA\", \"status\": \"ACTIVE\"}]"
+    },
+    {
+      "method": "GET",
+      "url": "https://acme.okta.com/api/v1/users/00u4ops/factors",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "[{\"id\": \"ufpush\", \"factorType\": \"push\", \"provider\": \"OKTA\", \"status\": \"ACTIVE\"}, {\"id\": \"uftokens\", \"factorType\": \"token:software:totp\", \"provider\": \"OKTA\", \"status\": \"ACTIVE\"}, {\"id\": \"ufwebaut\", \"factorType\": \"webauthn\", \"provider\": \"OKTA\", \"status\": \"PENDING_ACTIVATION\"}]"
+    },
+    {
+      "method": "GET",
+      "url": "https://acme.okta.com/api/v1/users/00u5gone/factors",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "[]"
+    }
+  ]
+}

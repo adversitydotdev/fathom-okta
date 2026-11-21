@@ -1,0 +1,40 @@
+# Push a tag vX.Y.Z matching manifest.yaml's version. The release carries the
+# archive and its sha-256, ready for `POST /v1/integrations` (RFC 0005 section 4).
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3  # no floating major tag
+        with:
+          enable-cache: true
+      - run: uv sync --locked
+      - run: uv run pytest -q
+      - name: Tag matches the manifest
+        run: |
+          version=$(uv run python -c "import yaml; print(yaml.safe_load(open('manifest.yaml'))['version'])")
+          test "v$version" = "$GITHUB_REF_NAME"
+      - name: Pack
+        id: pack
+        run: |
+          out=$(uv run ogrl-integration pack . --out dist)
+          echo "$out"
+          echo "archive=$(echo "$out" | head -1)" >> "$GITHUB_OUTPUT"
+          echo "digest=$(echo "$out" | awk '/^sha256/ {print $2}')" >> "$GITHUB_OUTPUT"
+      - name: Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "${{ steps.pack.outputs.digest }}  $(basename ${{ steps.pack.outputs.archive }})" > dist/SHA256SUMS
+          gh release create "$GITHUB_REF_NAME" ${{ steps.pack.outputs.archive }} dist/SHA256SUMS \
+            --title "$GITHUB_REF_NAME" \
+            --notes "Install: POST /v1/integrations with this release's archive URL and digest ${{ steps.pack.outputs.digest }}."

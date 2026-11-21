@@ -1,0 +1,13 @@
+{
+  "interactions": [
+    {
+      "method": "GET",
+      "url": "https://acme.okta.com/api/v1/users/me",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "{\"id\": \"00u9svc\", \"status\": \"ACTIVE\", \"created\": \"2025-01-10T12:00:00.000Z\", \"lastLogin\": \"2026-11-20T08:00:00.000Z\", \"passwordChanged\": \"2026-09-01T00:00:00.000Z\", \"type\": {\"id\": \"oty1default\"}, \"profile\": {\"login\": \"svc-ogrl@acme.test\", \"email\": \"svc-ogrl@acme.test\", \"firstName\": \"x\", \"lastName\": \"y\"}, \"_links\": {}}"
+    }
+  ]
+}

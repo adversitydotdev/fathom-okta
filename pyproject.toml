@@ -1,0 +1,33 @@
+[project]
+name = "ogrl-okta"
+version = "0.1.0"
+description = "Okta integration for OGRL (RFC 0005): users, MFA factors, admin roles, and groups."
+license = "Apache-2.0"
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "ogrl-integration[cli]",
+    "pytest>=8",
+    "ruff>=0.15",
+    "common-expression-language>=0.10,<0.11",
+    "pyyaml>=6",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+ogrl-integration = { git = "https://github.com/adversitydotdev/ogrl-integration-sdk", tag = "v0.1.0a2" }
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
