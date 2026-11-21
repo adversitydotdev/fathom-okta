@@ -19,7 +19,7 @@ dev = [
 package = false
 
 [tool.uv.sources]
-ogrl-integration = { git = "https://github.com/adversitydotdev/ogrl-integration-sdk", tag = "v0.1.0a5" }
+ogrl-integration = { git = "https://github.com/adversitydotdev/ogrl-integration-sdk", tag = "v0.1.0a6" }
 
 [tool.ruff]
 line-length = 110
