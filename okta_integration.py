@@ -7,7 +7,7 @@ Rate limits apply per endpoint; the SDK client backs off on 429 and honours
 
 from ogrl_integration import Integration, Subject, fail, pass_
 
-app = Integration("dev.adversity.okta", "0.1.3")
+app = Integration("dev.adversity.okta", "0.1.4")
 
 ACTIVE = frozenset({"ACTIVE", "PASSWORD_EXPIRED", "LOCKED_OUT", "RECOVERY"})
 PHISHING_RESISTANT = frozenset({"webauthn", "u2f", "signed_nonce"})

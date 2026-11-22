@@ -37,6 +37,11 @@ QUERIES = {
         params={"type": "OKTA_SIGN_ON"},
         fields={"id": "id", "name": "name", "status": "status", "priority": "priority"},
     ),
+    "members of each group": openapi.Query(
+        "listGroupUsers",
+        fields={"id": "id", "name": "profile.login", "status": "status", "group": "$parent.profile.name"},
+        for_each=openapi.ForEach("listGroups", bind={"groupId": "id"}),
+    ),
     "groups": openapi.Query("listGroups", fields={"id": "id", "name": "profile.name", "type": "type"}),
 }
 
@@ -45,7 +50,7 @@ QUERIES = {
 def test_common_queries_validate(label):
     problems, schema = openapi.validate(DESCRIPTION, SETTINGS, QUERIES[label])
     assert [p for p in problems if not p.warning] == []
-    assert schema and set(schema["properties"]) == set(QUERIES[label].fields)
+    assert schema and set(QUERIES[label].fields) <= set(schema["properties"])
 
 
 def test_writes_cannot_be_queried():

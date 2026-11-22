@@ -1,6 +1,6 @@
 [project]
 name = "ogrl-okta"
-version = "0.1.3"
+version = "0.1.4"
 description = "Okta integration for OGRL (RFC 0005): users, MFA factors, admin roles, and groups."
 license = "Apache-2.0"
 requires-python = ">=3.12"
@@ -19,7 +19,7 @@ dev = [
 package = false
 
 [tool.uv.sources]
-ogrl-integration = { git = "https://github.com/adversitydotdev/ogrl-integration-sdk", tag = "v0.1.0a9" }
+ogrl-integration = { git = "https://github.com/adversitydotdev/ogrl-integration-sdk", tag = "v0.1.0a12" }
 
 [tool.ruff]
 line-length = 110
